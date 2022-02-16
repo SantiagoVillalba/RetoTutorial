@@ -1,4 +1,5 @@
 import datetime
+from statistics import mode
 from time import time
 from django.db import models
 from django.utils import timezone
@@ -21,3 +22,6 @@ class Choice(models.Model):
 
 class Football(models.Model):
     cancha = models.CharField(max_length=100)
+    goles = models.IntegerField(default=0)
+    def __str__(self):
+        return self.cancha
