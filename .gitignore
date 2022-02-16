@@ -351,5 +351,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+Reto/mysite/polls/migrations
 Reto/mysite/polls/migrations/0001_initial.py
 Reto/mysite/polls/migrations/0002_football.py
