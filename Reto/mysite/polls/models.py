@@ -28,6 +28,7 @@ class Choice(models.Model):
         return self.choice_text
 # Create your models here.
 class Empresa(models.Model):
+    location = models.CharField(max_length=30, blank=True)
     nombre = models.CharField(max_length=200)
     def __str__(self):
         return self.choice_text
