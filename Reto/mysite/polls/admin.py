@@ -1,6 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin
-from .models import Choice, Question, User
+from .models import Choice, Question, User, Empresa
 
 
 class ChoiceInLine(admin.TabularInline):
@@ -22,6 +21,10 @@ class QuestionAdmin(admin.ModelAdmin):
 class CustomUserAdmin(admin.ModelAdmin):
     pass 
 
+class CustomEmpresaAdmin(admin.ModelAdmin):
+    pass 
+
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(User, CustomUserAdmin)
+admin.site.register(Empresa, CustomEmpresaAdmin)
 # Register your models here.
