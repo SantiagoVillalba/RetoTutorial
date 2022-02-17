@@ -1,6 +1,6 @@
 from django.contrib import admin
-
-from .models import Choice, Question, Football
+from django.contrib.auth.admin import UserAdmin
+from .models import Choice, Question, User
 
 
 class ChoiceInLine(admin.TabularInline):
@@ -18,6 +18,5 @@ class QuestionAdmin(admin.ModelAdmin):
     list_filter = ['pub_date']
     search_fields = ['question_text']
 admin.site.register(Question, QuestionAdmin)
-
-admin.site.register(Football)
+admin.site.register(User, UserAdmin)
 # Register your models here.

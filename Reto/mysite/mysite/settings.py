@@ -14,7 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+AUTH_USER_MODEL = 'models.User'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -26,7 +26,6 @@ SECRET_KEY = 'django-insecure-4(!%d$s*mpj2opr7t5bsss-i6n9_0g8je=)uj-=^*dr7o9@f&y
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 

@@ -1,10 +1,10 @@
 import datetime
-from statistics import mode
-from time import time
-from xmlrpc.client import boolean
 from django.db import models
 from django.contrib import admin
 from django.utils import timezone
+
+from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 class Question(models.Model):
     question_text= models.CharField(max_length=200)
@@ -28,8 +28,12 @@ class Choice(models.Model):
         return self.choice_text
 # Create your models here.
 
-class Football(models.Model):
-    cancha = models.CharField(max_length=100)
-    goles = models.IntegerField(default=0)
+class User(AbstractUser):
+    name = models.TextField(max_length=200, blank=True)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=30, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    phone = models.TextField(max_length=50,blank=True)
     def __str__(self):
-        return self.cancha
+        return self.name
+
