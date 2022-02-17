@@ -34,6 +34,7 @@ class User(AbstractUser):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     phone = models.TextField(max_length=50,blank=True)
+    
     def __str__(self):
         return self.name
 

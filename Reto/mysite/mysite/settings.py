@@ -9,9 +9,6 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-import django
-django.setup()
-from polls.models import User
 
 from pathlib import Path
 
@@ -20,7 +17,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # ANADI ESTA LINEA DE ABAJO
-AUTH_USER_MODEL = 'models.User'
+AUTH_USER_MODEL = 'polls.User'
 ##############################
 
 # Quick-start development settings - unsuitable for production
@@ -38,9 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'polls.apps.PollsConfig',
-    # ANADI ESTA LINEA DE ABAJO
-    'polls.models.User',
-    ###################################
+    #'mysite.polls',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
