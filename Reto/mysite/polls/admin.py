@@ -18,6 +18,10 @@ class QuestionAdmin(admin.ModelAdmin):
     list_filter = ['pub_date']
     search_fields = ['question_text']
     
+
+class CustomUserAdmin(admin.ModelAdmin):
+    pass 
+
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(User, UserAdmin)
+admin.site.register(User, CustomUserAdmin)
 # Register your models here.
