@@ -6,9 +6,17 @@ from django.views import generic
 from django.conf import settings
 from django.core.mail import send_mail
 
+#no anda
+from celery import Celery
+from celery.schedules import crontab
+
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 from .models import Choice, Question, User
+
+#no anda
+app = Celery()
+mandar = False
 
 def send_email(email):
     context = {'mail' : email}
@@ -24,11 +32,21 @@ def send_email(email):
     envio.attach_alternative(content, 'text/html')
     envio.send()
 
+@app.on_after_configure.connect
+def setup_periodic_tasks(sender,**kwargs):
+    sender.add_periodic_task(
+        10,
+        noPhoneSendMessage.s()
+        ,name='probar'
+        )
+
 def noPhoneSendMessage():
-    users = User.objects.filter(telefono="")
-    for user in users:
-        mail = user.email
-        send_email(mail)
+    if(mandar):
+        users = User.objects.filter(telefono="")
+        for user in users:
+            mail = user.email
+            send_email(mail)
+    
     
 
 def mail_func(request):
@@ -40,6 +58,7 @@ def mail_func(request):
             send_email(mail)
         elif(phone):
             noPhoneSendMessage()
+            mandar = True
 
     return render(request, 'polls/mail.html',{})
 
