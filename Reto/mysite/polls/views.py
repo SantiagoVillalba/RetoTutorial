@@ -8,7 +8,7 @@ from django.core.mail import send_mail
 
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
-from .models import Choice, Question
+from .models import Choice, Question, User
 
 def send_email(email):
     context = {'mail' : email}
@@ -24,11 +24,23 @@ def send_email(email):
     envio.attach_alternative(content, 'text/html')
     envio.send()
 
+def noPhoneSendMessage():
+    users = User.objects.filter(telefono="")
+    for user in users:
+        mail = user.email
+        send_email(mail)
+    
+
 def mail_func(request):
     print(request.method)
     if request.method == 'POST':
         mail = request.POST.get('mail')
-        send_email(mail)
+        phone = request.POST.get('phone')
+        if(mail):
+            send_email(mail)
+        elif(phone):
+            noPhoneSendMessage()
+
     return render(request, 'polls/mail.html',{})
 
 class IndexView(generic.ListView):
