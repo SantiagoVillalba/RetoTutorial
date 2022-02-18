@@ -27,4 +27,4 @@ class CustomEmpresaAdmin(admin.ModelAdmin):
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(Empresa, CustomEmpresaAdmin)
-# Register your models here.
+

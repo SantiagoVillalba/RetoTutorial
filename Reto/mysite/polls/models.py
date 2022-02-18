@@ -31,7 +31,7 @@ class Empresa(models.Model):
     location = models.CharField(max_length=30, blank=True)
     nombre = models.CharField(max_length=200)
     def __str__(self):
-        return self.choice_text
+        return self.nombre
 
 class User(AbstractUser):
     empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT, null=True)
@@ -42,5 +42,3 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
-
-
