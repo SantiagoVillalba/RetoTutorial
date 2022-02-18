@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -5,9 +6,30 @@ from django.views import generic
 from django.conf import settings
 from django.core.mail import send_mail
 
-
-
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
 from .models import Choice, Question
+
+def send_email(email):
+    context = {'mail' : mail}
+
+    template = get_template('polls/correo.html')
+    content = template.render()
+
+    email = EmailMultiAlternatives(
+        'Un correo de prueba',
+        'codigo facil',
+        settings.EMAIL_HOST_USER,
+        [mail]
+    )
+    email.attach_alternative(content, 'text/html')
+    email.send()
+
+def mail(request):
+    if request.method == 'POST':
+        mail = request.POST.get('mail')
+        send_email(mail)
+    return render(request, 'polls/mail.html',{})
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
