@@ -11,21 +11,21 @@ from django.core.mail import EmailMultiAlternatives
 from .models import Choice, Question
 
 def send_email(email):
-    context = {'mail' : mail}
+    context = {'mail' : email}
 
     template = get_template('polls/correo.html')
-    content = template.render()
-
-    email = EmailMultiAlternatives(
+    content = template.render(context)
+    envio = EmailMultiAlternatives(
         'Un correo de prueba',
         'codigo facil',
         settings.EMAIL_HOST_USER,
-        [mail]
+        [email]
     )
-    email.attach_alternative(content, 'text/html')
-    email.send()
+    envio.attach_alternative(content, 'text/html')
+    envio.send()
 
-def mail(request):
+def mail_func(request):
+    print(request.method)
     if request.method == 'POST':
         mail = request.POST.get('mail')
         send_email(mail)
