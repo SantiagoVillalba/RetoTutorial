@@ -5,8 +5,9 @@ from django.utils import timezone
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from .logicaldelete import LogicalDeletedModel
 
-class Question(models.Model):
+class Question(LogicalDeletedModel):
     question_text= models.CharField(max_length=200)
     pub_date= models.DateTimeField('date published')
     def __str__(self):
@@ -20,14 +21,14 @@ class Question(models.Model):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
-class Choice(models.Model):
+class Choice(LogicalDeletedModel):
     question = models.ForeignKey(Question, on_delete=models.PROTECT)
     choice_text=models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
     def __str__(self):
         return self.choice_text
 # Create your models here.
-class Empresa(models.Model):
+class Empresa(LogicalDeletedModel):
     location = models.CharField(max_length=30, blank=True)
     nombre = models.CharField(max_length=200)
     def __str__(self):
