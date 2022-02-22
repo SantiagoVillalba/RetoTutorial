@@ -33,7 +33,7 @@ def send_email(email):
     envio.send()
 
 @app.on_after_configure.connect
-def setup_periodic_tasks(sender,**kwargs):
+def setup_periodic_tasks(sender, **kwargs):
     sender.add_periodic_task(
         10,
         noPhoneSendMessage.s()
