@@ -1,27 +1,29 @@
-"""mysite URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+from typing import List
+
 from django.contrib import admin
 from django.urls import include, path
 from ninja import NinjaAPI
+from polls.models import *
+from ninja import ModelSchema
 
 api = NinjaAPI()
 
-@api.get("/add")
-def add(request, a:int, b:int):
-    return {"result": a + b}
+class UserSchema(ModelSchema):
+
+    class Config:
+        model = User
+        model_fields = "__all__"
+
+@api.get("/user/{int:id}",response = UserSchema)
+def userGet(request,id):
+    user = User.objects.filter(pk=id).first() # [0]
+    return user
+
+@api.get("/users",response = List[UserSchema])
+def usersGet(request):
+    users = User.objects.all()
+    return list(users)
 
 urlpatterns = [
     path("api/", api.urls),
