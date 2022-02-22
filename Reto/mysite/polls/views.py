@@ -7,16 +7,16 @@ from django.conf import settings
 from django.core.mail import send_mail
 
 #no anda
-from celery import Celery
-from celery.schedules import crontab
+#from celery import Celery
+#from celery.schedules import crontab
 
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
 from .models import Choice, Question, User
 
 #no anda
-app = Celery()
-mandar = False
+#app = Celery()
+#mandar = False
 
 def send_email(email):
     context = {'mail' : email}
@@ -32,16 +32,16 @@ def send_email(email):
     envio.attach_alternative(content, 'text/html')
     envio.send()
 
-@app.on_after_configure.connect
-def setup_periodic_tasks(sender, **kwargs):
-    sender.add_periodic_task(
-        10,
-        noPhoneSendMessage.s()
-        ,name='probar'
-        )
+#@app.on_after_configure.connect
+#def setup_periodic_tasks(sender, **kwargs):
+#    sender.add_periodic_task(
+#        10,
+#        noPhoneSendMessage.s()
+#       ,name='probar'
+#       )
 
 def noPhoneSendMessage():
-    if(mandar):
+    if(True):
         users = User.objects.filter(telefono="")
         for user in users:
             mail = user.email
