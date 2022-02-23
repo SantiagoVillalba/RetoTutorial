@@ -8,8 +8,9 @@ from django.contrib.auth.models import AbstractUser
 from .logicaldelete import LogicalDeletedModel
 
 class Question(LogicalDeletedModel):
-    question_text= models.CharField(max_length=200)
-    pub_date= models.DateTimeField('date published')
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
     def __str__(self):
         return self.question_text
     @admin.display(
@@ -34,7 +35,7 @@ class Empresa(LogicalDeletedModel):
     def __str__(self):
         return self.nombre
 
-class User(AbstractUser,LogicalDeletedModel):
+class User(LogicalDeletedModel, AbstractUser):
     empresa = models.ForeignKey(Empresa, on_delete=models.PROTECT, null=True)
     localizacion = models.CharField(max_length=30, blank=True)
     fecha_de_nacimiento = models.DateField(null=True, blank=True)

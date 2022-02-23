@@ -99,11 +99,12 @@ def usernameChange(request, id, username):
     user.username = username
     return user
 
-# nose como remplazar en la database, NO ANDA
 @api.put("/replaceWithAnotherUser/{int:id}/{int:toReplace}",response = UserSchema)
 def replaceWithAnotherUser(request, id, toReplace):
     user = User.objects.filter(pk=id).first()
-    user = User.objects.filter(pk=toReplace).first()
+    user.pk = toReplace
+    user.username = 'null'
+    #user2 = User.objects.filter(pk=toReplace).first()
     user.save()
     return user
 
