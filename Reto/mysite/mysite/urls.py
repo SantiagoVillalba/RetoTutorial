@@ -103,7 +103,7 @@ def usernameChange(request, id, username):
 def replaceWithAnotherUser(request, id, toReplace):
     user = User.objects.filter(pk=id).first()
     user.pk = toReplace
-    user.username = 'null'
+    user.username = '{random.int}'
     user.save()
     return user
 
