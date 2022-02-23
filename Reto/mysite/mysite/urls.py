@@ -104,7 +104,6 @@ def replaceWithAnotherUser(request, id, toReplace):
     user = User.objects.filter(pk=id).first()
     user.pk = toReplace
     user.username = 'null'
-    #user2 = User.objects.filter(pk=toReplace).first()
     user.save()
     return user
 
