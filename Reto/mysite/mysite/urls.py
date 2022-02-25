@@ -6,6 +6,7 @@ from django.urls import include, path
 from ninja import NinjaAPI
 from polls.models import *
 from ninja import ModelSchema
+import random
 
 api = NinjaAPI()
 
@@ -103,7 +104,7 @@ def usernameChange(request, id, username):
 def replaceWithAnotherUser(request, id, toReplace):
     user = User.objects.filter(pk=id).first()
     user.pk = toReplace
-    user.username = '{random.int}'
+    user.username = str(random.randint(0,100000))
     user.save()
     return user
 
